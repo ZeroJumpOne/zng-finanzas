@@ -20,6 +20,10 @@ import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { environment } from 'src/environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 
+//ngrx
+import { StoreModule } from '@ngrx/store';
+import { appReducers } from './app.reducer';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +43,8 @@ import { AppRoutingModule } from './app-routing.module';
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    StoreModule.forRoot( appReducers )
   ],
   providers: [],
   bootstrap: [AppComponent]
