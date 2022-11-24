@@ -5,11 +5,12 @@ import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { dashboardRoutes } from './dashboard/dashboard.routes';
+import { AuthGuard } from './services/auth.guard';
 
 const routes: Routes = [
   { path: 'login',  component: LoginComponent},
   { path: 'signup', component: SignupComponent},
-  { path: '',       component: DashboardComponent, children: dashboardRoutes},
+  { path: '',       component: DashboardComponent, children: dashboardRoutes, canActivate: [ AuthGuard]},
   { path: '**',     redirectTo: ''},
 
 ];
