@@ -31,16 +31,16 @@ export class EstadisticaComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.bussSubcription.unsubscribe();    
+    this.bussSubcription?.unsubscribe();    
   }
 
   generarEstadisticas( items: Finanzas[]) {
     if (items.length > 0) {
-      console.log(items);
+      //console.log(items);
 
       const onlyEgresos = items.filter( item => item.tipo === 'Egreso');
       this.totalEgresos = onlyEgresos.reduce( (a = 0, item2) => a + item2.monto, 0);
-      this.egresos = items.length;
+      this.egresos = onlyEgresos.length;
       //console.log('Solo egresos',onlyEgresos);
 
       const onlyIngresos = items.filter( item => item.tipo === 'Ingreso');

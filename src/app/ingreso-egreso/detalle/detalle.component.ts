@@ -25,7 +25,7 @@ export class DetalleComponent implements OnInit, OnDestroy {
     this.bussSubscription = this.store.select('finanzas').subscribe( ({ items }) => {
 
       if (items.length > 0) {
-        console.log(items);
+        //console.log(items);
         this.bussiness = items;
       }
     });
@@ -33,7 +33,7 @@ export class DetalleComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     
-    this.bussSubscription.unsubscribe();
+    this.bussSubscription?.unsubscribe();
   }
 
   borrar(uid: any): void {

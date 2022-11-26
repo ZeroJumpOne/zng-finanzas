@@ -48,7 +48,7 @@ export class AuthService {
         //no existe
         //console.log('llamar unset del usuario');
         this._user = emptyUser;
-        this.userSubscription.unsubscribe();
+        this.userSubscription?.unsubscribe();
         this.store.dispatch( authActions.unSetUser() );
         this.store.dispatch( bussActions.unSetItems());
       }
