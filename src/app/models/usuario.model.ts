@@ -1,6 +1,4 @@
 
-
-
 export class Usuario {
 
     static fromFirestore( firestoreUser: any ) { //desestructuracion del objeto de firebase
@@ -16,3 +14,5 @@ export class Usuario {
     ) {}
 
 }
+
+export const emptyUser = new Usuario( '0', '', '');

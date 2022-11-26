@@ -23,6 +23,7 @@ import { AppRoutingModule } from './app-routing.module';
 //ngrx
 import { StoreModule } from '@ngrx/store';
 import { appReducers } from './app.reducer';
+import { OrdenFinanzasPipe } from './pipes/orden-finanzas.pipe';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { appReducers } from './app.reducer';
     DetalleComponent,
     FooterComponent,
     NavbarComponent,
-    SidebarComponent    
+    SidebarComponent,
+    OrdenFinanzasPipe    
   ],
   imports: [
     BrowserModule,

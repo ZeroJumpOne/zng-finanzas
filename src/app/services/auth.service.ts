@@ -6,10 +6,11 @@ import { map } from 'rxjs/operators';
 import 'firebase/firestore';
 
 
-import { Usuario } from '../models/usuario.model';
+import { Usuario, emptyUser } from '../models/usuario.model';
 import { Store } from '@ngrx/store';
 import { AppState } from '../app.reducer';
 import * as authActions from '../auth/auth.actions';
+import * as bussActions from '../ingreso-egreso/finanzas.actions';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +18,7 @@ import * as authActions from '../auth/auth.actions';
 export class AuthService {
 
   userSubscription!: Subscription;
+  private _user!: Usuario;
 
   constructor(public auth: AngularFireAuth, 
               private firestore: AngularFirestore,
@@ -31,19 +33,24 @@ export class AuthService {
         this.userSubscription = this.firestore.doc(`${fbUser.uid}/usuario`).valueChanges()
         .subscribe( (firestoreUser) => {
 
-          console.log('db:',firestoreUser);
+          //console.log('db:',firestoreUser);
 
           const cualUsuario = Usuario.fromFirestore( firestoreUser );
 
+          this._user = cualUsuario;
+
           this.store.dispatch( authActions.setUser( { user: cualUsuario } ));
+          
           
         });
 
       } else {
         //no existe
         //console.log('llamar unset del usuario');
+        this._user = emptyUser;
         this.userSubscription.unsubscribe();
         this.store.dispatch( authActions.unSetUser() );
+        this.store.dispatch( bussActions.unSetItems());
       }
     });
   }
@@ -74,5 +81,9 @@ export class AuthService {
 
   isAuth(): any {
     return this.auth.authState.pipe(map((fbUser) => fbUser != null));
+  }
+
+  get user(): Usuario {
+    return { ...this._user };
   }
 }
